@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Website Cinta</title>
+  <style>
+    body {
+      font-family: "Comic Sans MS", cursive;
+      background-color: pink;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      flex-direction: column;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    h1 {
+      color: #d63384;
+      text-shadow: 2px 2px #fff;
+      margin-bottom: 20px;
+      animation: fadeIn 2s ease-in-out;
+      z-index: 2;
+    }
+
+    button {
+      font-family: "Comic Sans MS", cursive;
+      background-color: #ff66b2;
+      border: none;
+      border-radius: 20px;
+      padding: 12px 24px;
+      font-size: 18px;
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin: 10px;
+      box-shadow: 2px 2px 6px rgba(0,0,0,0.2);
+      z-index: 2;
+      position: relative;
+    }
+
+    button:hover {
+      transform: scale(1.1);
+      background-color: #ff3399;
+    }
+
+    #question {
+      display: none;
+      margin-top: 20px;
+      font-size: 22px;
+      color: #c2185b;
+      font-weight: bold;
+      z-index: 2;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    .heart {
+      position: fixed;
+      top: -10px;
+      font-size: 24px;
+      animation: fall linear forwards;
+      color: #ff1a75;
+      z-index: 1;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>💖 Selamat Datang di Website Cinta 💖</h1>
+  <button id="startBtn">Klik untuk dilihat</button>
+
+  <div id="question">
+    <p>Maukah kamu jadi pacarku? 🥰</p>
+    <button id="yesBtn">Iyaaa!! 💕</button>
+    <button id="noBtn">Gak dulu.. 😝</button>
+  </div>
+
+  <script>
+    const startBtn = document.getElementById("startBtn");
+    const question = document.getElementById("question");
+    const noBtn = document.getElementById("noBtn");
+    const yesBtn = document.getElementById("yesBtn");
+
+    // Saat klik tombol awal
+    startBtn.addEventListener("click", () => {
+      question.style.display = "block";
+      startBtn.style.display = "none";
+    });
+
+    // Tombol "gak dulu.." lari-lari
+    noBtn.addEventListener("mouseover", () => {
+      const containerWidth = window.innerWidth - 150;
+      const containerHeight = window.innerHeight - 150;
+      
+      let randomX, randomY;
+      do {
+        randomX = Math.floor(Math.random() * containerWidth);
+        randomY = Math.floor(Math.random() * containerHeight);
+      } while (
+        Math.abs(randomX - yesBtn.offsetLeft) < 120 &&
+        Math.abs(randomY - yesBtn.offsetTop) < 50
+      );
+
+      noBtn.style.position = "absolute";
+      noBtn.style.left = randomX + "px";
+      noBtn.style.top = randomY + "px";
+    });
+
+    // Klik "iyaaa!!"
+    yesBtn.addEventListener("click", () => {
+      alert("Yeayyy! Aku juga sayang kamu 💖🥰");
+    });
+
+    // Efek hati jatuh
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.innerHTML = "💖";
+      heart.style.left = Math.random() * window.innerWidth + "px";
+      heart.style.animationDuration = (3 + Math.random() * 3) + "s";
+      document.body.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 6000);
+    }
+
+    setInterval(createHeart, 500);
+  </script>
+
+</body>
+</html>
