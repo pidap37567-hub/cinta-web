@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cinta ❤️</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="container" id="intro">
+    <h1>💕 Selamat Datang 💕</h1>
+    <button class="btn start-btn" onclick="showQuestion()">Klik untuk dilihat</button>
+  </div>
+
+  <div class="container hidden" id="questionBox">
+    <h1>Maukah kamu jadi pacarku? 🥰</h1>
+    <button class="btn iya-btn">Iyaaa!! 💖</button>
+    <button class="btn no-btn" id="noBtn">gak dulu.. 🙈</button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+<script>
+  const intro = document.getElementById("intro");
+const questionBox = document.getElementById("questionBox");
+const noBtn = document.getElementById("noBtn");
+const iyaBtn = document.querySelector(".iya-btn");
+
+function showQuestion() {
+  intro.classList.add("hidden");
+  questionBox.classList.remove("hidden");
+}
+
+noBtn.addEventListener("mouseover", () => {
+  const box = questionBox.getBoundingClientRect();
+  const btnWidth = noBtn.offsetWidth;
+  const btnHeight = noBtn.offsetHeight;
+
+  const padding = 30;
+  const maxX = box.width - btnWidth - padding;
+  const maxY = box.height - btnHeight - padding;
+
+  const randomX = Math.floor(Math.random() * maxX);
+  const randomY = Math.floor(Math.random() * maxY);
+
+  noBtn.style.left = randomX + "px";
+  noBtn.style.top = randomY + "px";
+});
+
+// 👉 Tambahkan aksi untuk tombol "Iyaaa!!"
+iyaBtn.addEventListener("click", () => {
+  questionBox.innerHTML = `
+    <h1>Yeayyy 💖🥰<br>Kita resmi jadian sekarang!</h1>
+    <p style="font-size:20px; color:#e60073;">Aku janji bakal bikin kamu bahagia 😘</p>
+  `;
+
+  // Buat love rain (hati jatuh)
+  for (let i = 0; i < 20; i++) {
+    createHeart();
+  }
+});
+
+function createHeart() {
+  const heart = document.createElement("span");
+  heart.classList.add("heart");
+  heart.innerHTML = "❤️";
+
+  // Posisi horizontal random
+  heart.style.left = Math.random() * window.innerWidth + "px";
+  heart.style.fontSize = Math.random() * 20 + 20 + "px"; // ukuran random
+
+  document.body.appendChild(heart);
+
+  // Hapus setelah animasi selesai
+  setTimeout(() => {
+    heart.remove();
+  }, 3000);
+}
+</script>
+</html>
